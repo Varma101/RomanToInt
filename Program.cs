@@ -7,6 +7,8 @@ namespace Roman_Numerals
     {
         static void Main(string[] args)
         {
+            
+            //the dictionary that contains all roman numerals and their integer keys
             var romNumerals = new Dictionary<char,int>();
             
             romNumerals.Add('I', 1);
@@ -17,29 +19,36 @@ namespace Roman_Numerals
             romNumerals.Add('D', 500);
             romNumerals.Add('M', 1000);
 
-            /* System.Console.WriteLine(romNumerals['V']+romNumerals['M']);
-            System.Console.WriteLine(args[0].Length); */
-
+            //get the string of roman numerals from the console into a variable, helps keep code clean
             string currArg = args[0];
            
-            var result = 0;
+            //int var to hold the value of roman num
+            var romNumVal = 0;
+
+            //for loop to iterate over the chars in currArg string. Starts at 0, end before it reaches length of string
             for (int i = 0; i < currArg.Length; i++)
             {
                 
+                //first checks to see if we're at last character. If not, then check to see if next character is bigger
                 if ((i < currArg.Length - 1) && (romNumerals[currArg[i]] < romNumerals[currArg[i+1]]))
                 {
-                    result += romNumerals[currArg[i+1]] - romNumerals[currArg[i]];
+                    
+                    //if the next char is bigger, subtract the current char from the next and add resulting value to romNumVal
+                    romNumVal += romNumerals[currArg[i+1]] - romNumerals[currArg[i]];
+                    
+                    //then, skip ahead one in iteration order since we already counted this
                     i += 1;
                 }
 
+                //if number isn't subtracting the one ahead, then add it to romNumVal
                 else
                 {
-                    result += romNumerals[currArg[i]];
+                    romNumVal += romNumerals[currArg[i]];
                 }
             }
 
-            System.Console.WriteLine(result);
-
+            //output
+            System.Console.WriteLine(romNumVal);
         }
     }
 }
